@@ -1,0 +1,148 @@
+﻿@model CadastrarUser.Models.Usuario
+
+<main>
+    <div class="container">
+        <h2>Dados do usuário: @Model.Nome</h2>
+        <hr />
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label col-md-2">Nome</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.Nome" />
+            </div>
+
+            <div class="col-md-6">
+                <label class="control-label col-md-2">CPF</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.Cpf" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label col-md-6">Senha</label>
+                <input type="password" class="form-control mw-100" readonly value="@Model.Senha" />
+            </div>
+
+            <div class="col-md-6">
+                <label class="control-label col-md-6">Confirmar senha</label>
+                <input id="ConfirmarSenha" type="password" class="form-control mw-100" readonly value="@Model.Senha" />
+                <span id="ConfirmaSenhaSpan" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label col-md-6">Data de Nascimento</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.DataNascimento.ToString("dd/MM/yyyy")" />
+                <span class="text-danger" asp-validation-for="DataNascimento"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label class="control-label col-md-2">Perfil</label>
+                <input type="text" class="form-control mw-100" readonly value="@Enum.GetName(typeof(CadastrarUser.Models.Perfil), Model.Perfil)" />
+                <span class="text-danger" asp-validation-for="Perfil"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label col-md-6">Data de última atualização do registro</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.DataAtualizacaoDoRegistro.ToString("dd/MM/yyyy")" />
+                <span class="text-danger" asp-validation-for="DataAtualizacaoDoRegistro"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label class="control-label col-md-6">Data de criação do registro</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.DataCriacaoDoRegistro.ToString("dd/MM/yyyy")" />
+                <span class="text-danger" asp-validation-for="DataCriacaoDoRegistro"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">E-mail</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control mw-100" readonly value="@Model.Email" />
+            </div>
+        </div>
+
+        <div class="row m-4">
+            <div class="col"><hr></div>
+            <div class="col-auto">
+                <h4>Endereço </h4>
+            </div>
+            <div class="col"><hr></div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label col-md-6">CEP</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.Endereco.CEP" />
+                <span class="text-danger" asp-validation-for="Endereco.CEP"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label class="control-label col-md-6">País</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.Endereco.Pais" />
+                <span class="text-danger" asp-validation-for="Endereco.Pais"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label col-md-2">Estado</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.Endereco.Estado" />
+                <span class="text-danger" asp-validation-for="Endereco.Estado"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label class="control-label col-md-6">Cidade</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.Endereco.Cidade" />
+                <span class="text-danger" asp-validation-for="Endereco.Cidade"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="control-label col-md-2">Logradouro</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.Endereco.Logradouro" />
+                <span class="text-danger" asp-validation-for="Endereco.Logradouro"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label class="control-label col-md-6">Complemento</label>
+                <input type="text" class="form-control mw-100" readonly value="@Model.Endereco.Complemento" />
+                <span class="text-danger" asp-validation-for="Endereco.Complemento"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Número</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control mw-100" readonly value="@Model.Endereco.Numero" />
+                <span class="text-danger" asp-validation-for="Endereco.Numero"></span>
+            </div>
+        </div>
+
+        <div class="row m-4">
+            <div class="col"><hr></div>
+            <div class="col-auto">
+                <h4>Telefone(s) </h4>
+            </div>
+            <div class="col"><hr></div>
+        </div>
+
+        <div id="telefoneContainer">
+            @for (int i = 0; i < Model.Telefones.Count; i++)
+            {
+                <div class="form-group row justify-content-center mb-2">
+                    <div class="input-group col-md-8">
+                        <label class="control-label w-100 col-md-2">Telefone</label>
+                        <input type="text" class="form-control mw-100" readonly name="Telefones[@i].NumeroDeTelefone" value="@Model.Telefones[i].NumeroDeTelefone">
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</main>

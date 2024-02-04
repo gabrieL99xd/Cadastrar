@@ -1,0 +1,293 @@
+﻿@model CadastrarUser.Models.Usuario
+
+<main>
+    <div class="container">
+        <h2>Editar usuário: @Model.Nome</h2>
+        <hr />
+        @using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label class="control-label col-md-2">Nome</label>
+                    @Html.TextBoxFor(model => model.Nome, new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.Nome, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6">
+                    <label class="control-label col-md-2">CPF</label>
+                    @Html.TextBoxFor(model => model.Cpf, new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label class="control-label col-md-2">Senha</label>
+                    @Html.PasswordFor(model => model.Senha, new { @class = "form-control mw-100", value = Model.Senha })
+                    @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Confirmar senha</label>
+                    <input id="ConfirmarSenha" type="password" class="form-control mw-100" value="@Model.Senha" />
+                    <span id="ConfirmaSenhaSpan" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Data de nascimento</label>
+                    @Html.TextBoxFor(model => model.DataNascimento, "{0:yyyy-MM-dd}", new { @class = "form-control mw-100", type = "date" })
+                    <span class="text-danger" asp-validation-for="DataNascimento"></span>
+                </div>
+
+
+                <div class="col-md-6">
+                    <label class="control-label col-md-2">Perfil</label>
+                    @Html.DropDownListFor(model => model.Perfil, Enum.GetValues(typeof(CadastrarUser.Models.Perfil)).Cast<CadastrarUser.Models.Perfil>().Select(
+                        x => new SelectListItem { Text = Enum.GetName(typeof(CadastrarUser.Models.Perfil), x), Value = ((int)x).ToString() }),
+                        new { @class = "form-control mw-100" })
+                    <span class="text-danger" asp-validation-for="Perfil"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Data de última atualização do registro</label>
+                    @Html.TextBoxFor(model => model.DataAtualizacaoDoRegistro, "{0:yyyy-MM-dd}", new { @class = "form-control mw-100", type = "date" , @readonly = "readonly" })
+                    <span class="text-danger" asp-validation-for="DataNascimento"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Data de criação do registro</label>
+                    @Html.TextBoxFor(model => model.DataCriacaoDoRegistro, "{0:yyyy-MM-dd}", new { @class = "form-control mw-100", type = "date" , @readonly = "readonly" })
+                    <span class="text-danger" asp-validation-for="DataNascimento"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">E-mail</label>
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row m-4">
+                <div class="col"><hr></div>
+                <div class="col-auto">
+                    <h4>Endereço </h4>
+                </div>
+                <div class="col"><hr></div>
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">CEP</label>
+                    @Html.TextBoxFor(model => model.Endereco.CEP, new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.Endereco.CEP, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">País</label>
+                    @Html.TextBoxFor(model => model.Endereco.Pais, new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.Endereco.Pais, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label class="control-label col-md-2">Estado</label>
+                    @Html.TextBoxFor(model => model.Endereco.Estado, new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.Endereco.Estado, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Cidade</label>
+                    @Html.TextBoxFor(model => model.Endereco.Cidade, new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.Endereco.Cidade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label class="control-label col-md-2">Logradouro</label>
+                    @Html.TextBoxFor(model => model.Endereco.Logradouro, new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.Endereco.Logradouro, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Complemento</label>
+                    @Html.TextBoxFor(model => model.Endereco.Complemento, new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.Endereco.Complemento, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Numero</label>
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Endereco.Numero, new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.Endereco.Numero, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="row m-4">
+                <div class="col"><hr></div>
+                <div class="col-auto">
+                    <h4>Telefone(s) </h4>
+                </div>
+                <div class="col"><hr></div>
+            </div>
+
+            <div id="telefoneContainer">
+                @for (int i = 0; i < Model.Telefones.Count; i++)
+                {
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-md-8">
+                            <label class="control-label w-100 col-md-2">Telefone</label>
+                            <input type="text" class="form-control mw-100" name="Telefones[@i].NumeroDeTelefone" value="@Model.Telefones[i].NumeroDeTelefone">
+                            <input type="hidden" name="Telefones[@i].Id" value="@Model.Telefones[i].Id" />
+                            <span class="input-group-text btn btn-danger removerTelefone">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"></path>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <button type="button" class="btn btn-success mt-5" id="adicionarTelefone">
+                Telefone
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
+                </svg>
+            </button>
+
+            <div class="form-group">
+                <div class="col-md-12 m-5  d-flex justify-content-center">
+                    <input id="submitButton" type="submit" value="Atualizar" disabled class="btn btn-primary p-2 w-25" />
+                </div>
+            </div>
+
+        }
+    </div>
+</main>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            $('#Endereco_CEP').change(function () {
+                var cep = $(this).val().replace(/\D/g, '');
+
+                if (cep.length === 8) {
+
+                    $.getJSON(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
+                        if (!data.erro) {
+                            $('#Endereco_Logradouro').val(data.logradouro);
+                            $('#Endereco_Complemento').val(data.complemento);
+                            $('#Endereco_Numero').val(data.numero);
+                            $('#Endereco_Bairro').val(data.bairro);
+                            $('#Endereco_Cidade').val(data.localidade);
+                            $('#Endereco_Estado').val(data.uf);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#adicionarTelefone').click(function () {
+                var indice = $('#telefoneContainer .form-group').length;
+
+                var novoCampoTelefone = `
+                    <div class="form-group row justify-content-center mt-3">
+                        <div class="input-group col-md-8">
+                            <label class="control-label w-100 col-md-2">Telefone</label>
+                            <input type="text" class="form-control mw-100" name="Telefones[${indice}].NumeroDeTelefone">
+                             <input type="hidden" name="Telefones[${indice}].Id" value="0" />
+                            <span class="input-group-text btn btn-danger removerTelefone">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"></path>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>`;
+
+                $('#telefoneContainer').append(novoCampoTelefone);
+            });
+
+            $(document).on('click', '.removerTelefone', function () {
+                var removedIndex = $(this).closest('.form-group').index();
+                var telefoneInput = $(this).closest('.form-group').find('input[name$=".NumeroDeTelefone"]');
+                var telefoneIdInput = $(this).closest('.form-group').find('input[name$=".Id"]');
+
+                var telefoneId = telefoneIdInput.val();
+                if (telefoneId !== '0') {
+                    telefoneIdInput.val('-' + telefoneId);
+                    $(this).closest('.form-group').hide();
+                } else {
+                    $(this).closest('.form-group').remove();
+                }
+
+                $('#telefoneContainer .form-group').each(function (index) {
+                    var updatedName = 'Telefones[' + index + ']';
+
+                    $(this).find('input[name$=".NumeroDeTelefone"]').attr('name', updatedName + '.NumeroDeTelefone');
+                    $(this).find('input[name$=".Id"]').attr('name', updatedName + '.Id');
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var senhaInput = $("#Senha");
+            var confirmarSenhaInput = $("#ConfirmarSenha");
+            var confirmarSenhaSpan = $("#ConfirmaSenhaSpan");
+            var submitButton = $("#submitButton");
+
+            validarSenhas();
+
+            senhaInput.on("input", function () {
+                validarSenhas();
+            });
+
+            confirmarSenhaInput.on("input", function () {
+                validarSenhas();
+            });
+
+            function validarSenhas() {
+                var senha = senhaInput.val();
+                var confirmarSenha = confirmarSenhaInput.val();
+
+                if (senha.length > 1 || confirmarSenha.length > 1) {
+                    if (senha === confirmarSenha) {
+                        confirmarSenhaSpan.text("");
+                        confirmarSenhaSpan.removeClass("field-validation-error");
+                        submitButton.prop("disabled", false);
+                    } else {
+                        confirmarSenhaSpan.text("As senhas não coincidem.");
+                        confirmarSenhaSpan.addClass("field-validation-error");
+                        submitButton.prop("disabled", true);
+                    }
+                } else {
+                    confirmarSenhaSpan.text("");
+                    confirmarSenhaSpan.removeClass("field-validation-error");
+                    submitButton.prop("disabled", true);
+                }
+            }
+        });
+    </script>
+}
