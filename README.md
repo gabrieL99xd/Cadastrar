@@ -7,4 +7,4 @@
 
 ### 1. Clone o Repositório
 
-### 2. Abrir a sln com o Visual Studio e apertar F5.
+### 2. Abrir a sln com o Visual Studio , faça o build e depois execute ou aperte F5.
